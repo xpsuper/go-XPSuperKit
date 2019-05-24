@@ -513,6 +513,11 @@ func (worker *XPWorkerImpl) Stop() {
 	worker.running = false
 }
 
+func (worker *XPWorkerImpl) StartAsService() {
+	worker.running = true
+	worker.run()
+}
+
 func (worker *XPWorkerImpl) run() {
 	// Figure out the next activation times for each entry.
 	now := time.Now().Local()
