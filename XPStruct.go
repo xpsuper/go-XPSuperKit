@@ -530,7 +530,7 @@ func parseTag(tag string) (string, tagOptions) {
 	return res[0], res[1:]
 }
 
-func (f *XPStructField) Copy(src, dst interface{}) error {
+func StructCopy(src, dst interface{}) error {
 	srcV, err := srcFilter(src)
 	if err != nil {
 		return err
