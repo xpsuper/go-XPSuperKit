@@ -80,6 +80,10 @@ func XPWorker() *XPWorkerImpl {
 	return NewXPWorker()
 }
 
+func XPAsync() *XPAsyncImpl {
+	return NewAsync()
+}
+
 func XPQueue(capacity uint32) *XPQueueImpl {
 	return NewXPQueue(capacity)
 }
