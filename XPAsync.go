@@ -22,13 +22,13 @@ type XPAsyncImpl struct {
 }
 
 // NewAsync 老版本的兼容
-func NewAsync() XPAsyncImpl {
+func NewAsync() *XPAsyncImpl {
 	return New()
 }
 
 // New 创建一个新的异步执行对象
-func New() XPAsyncImpl {
-	return Async{tasks: make(map[string]asyncRun)}
+func New() *XPAsyncImpl {
+	return &XPAsyncImpl{tasks: make(map[string]asyncRun)}
 }
 
 // Add 添加异步执行任务
