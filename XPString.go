@@ -1,18 +1,18 @@
 package XPSuperKit
 
 import (
-	"fmt"
-	"strings"
-	"strconv"
-	"unicode"
-	"unicode/utf8"
-	"crypto/sha1"
 	"crypto/md5"
 	"crypto/rand"
-	"encoding/hex"
+	"crypto/sha1"
 	"encoding/base64"
+	"encoding/hex"
+	"fmt"
 	"hash/crc32"
 	"net/url"
+	"strconv"
+	"strings"
+	"unicode"
+	"unicode/utf8"
 )
 
 type XPStringImpl struct {
@@ -46,6 +46,14 @@ func (s *XPStringImpl) Base64Decode(str string) (result string, err error) {
 	} else {
 		return string(r), nil
 	}
+}
+
+func (s *XPStringImpl) Uppercase(str string) (result string)  {
+	return strings.ToUpper(str)
+}
+
+func (s *XPStringImpl) Lowercase(str string) (result string)  {
+	return strings.ToLower(str)
 }
 
 func (s *XPStringImpl) UrlEncode(str string) string {
@@ -122,6 +130,10 @@ func (s *XPStringImpl) TrimRight(str string) string {
 
 func (s *XPStringImpl) Equal(source, target string) bool {
 	return strings.EqualFold(source, target)
+}
+
+func (s *XPStringImpl) EqualIgnoreCase(source, target string) bool {
+	return strings.EqualFold(strings.ToLower(source), strings.ToLower(target))
 }
 
 func (s *XPStringImpl) StartWith(str, prefix string) bool {
@@ -242,6 +254,33 @@ func (s *XPStringImpl) RandomWithSeed(length int, seed string) string {
 			}
 		}
 	}
+}
+
+/**
+ * 字符串掩码处理
+ * @param str string 需要处理的字符串
+ * @param code string 掩码符号如 （*）
+ * @param start int 开始处理位置 (负数表示从尾部开始)
+ * @param length int 掩饰长度
+ * @return string 处理过后的字符串
+ *
+ * 示例  str = 18888888888  code = *  start = -4 length = 4  返回  1888888****
+ */
+func (s *XPStringImpl) HideStr(str, code string, start, length int) string {
+	l := len(str)
+	if start < 0 {
+		start = -start
+		start = l - start
+	}
+	var end string
+	if length < l-start {
+		end = str[start+length : l]
+	}
+	if l-start < length {
+		length = l - start
+	}
+	hide := strings.Repeat(code, length)
+	return str[:start] + hide + end
 }
 
 // 分词
