@@ -6,15 +6,15 @@ import (
 )
 
 const (
-	kBasicTimestamp          = 1483200000000  // 2017/1/1 00:00:00
-	kWorkerIdBits            = 10             // Num of WorkerId Bits
-	kSenquenceBits           = 12             // Num of Sequence Bits
+	kBasicTimestamp = 1483200000000 // 2017/1/1 00:00:00
+	kWorkerIdBits   = 10            // Num of WorkerId Bits
+	kSequenceBits   = 12            // Num of Sequence Bits
 
-	kWorkerIdShift           = 12
-	kTimeStampShift          = 22
+	kWorkerIdShift  = 12
+	kTimeStampShift = 22
 
-	kSequenceMask            = 0xfff // equal as getSequenceMask()
-	kMaxWorker               = 0x3ff // equal as getMaxWorkerId()
+	kSequenceMask   = 0xfff // equal as getSequenceMask()
+	kMaxWorker      = 0x3ff // equal as getMaxWorkerId()
 )
 
 type XPIdGeneratorImpl struct {
@@ -74,7 +74,7 @@ func getMaxWorkerId() int64 {
 }
 
 func getSequenceMask() int64 {
-	return -1 ^ -1<<kSenquenceBits
+	return -1 ^ -1<<kSequenceBits
 }
 
 func (idGenerator *XPIdGeneratorImpl) timeGen() int64 {
